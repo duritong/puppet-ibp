@@ -12,5 +12,5 @@ class ibp::panics::linux {
   }
 
   # set the reboot time for kernel panics
-  sysctl::set_value{'kernel.panic': value => '30' }
+  sysctl::value{'kernel.panic': value => '30' }
 }
