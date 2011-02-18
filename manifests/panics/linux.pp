@@ -6,9 +6,9 @@ class ibp::panics::linux {
     default => "/boot/grub/grub.conf"
   }
 
-  exec{grub_panics:
+  exec{"grub_panics":
     command => "sed -i 's@\(.*vmlinuz.*\)@\1 panic=30@g' ${grubmenu_location}",
-    unless => "grep -q "panic=30" ${grubmenu_location}",
+    unless => "grep -q 'panic=30' ${grubmenu_location}",
   }
 
   # set the reboot time for kernel panics
