@@ -7,7 +7,7 @@ class ibp::panics::linux {
   }
 
   exec{"grub_panics":
-    command => "sed -i 's@\(.*vmlinuz.*\)@\1 panic=30@g' ${grubmenu_location}",
+    command => "sed -i 's@\\(.*vmlinuz.*\\)@\\1 panic=30@g' ${grubmenu_location}",
     unless => "grep -q 'panic=30' ${grubmenu_location}",
   }
 
