@@ -11,6 +11,20 @@ class ibp::panics::linux {
     unless => "grep -q 'panic=30' ${grubmenu_location}",
   }
 
-  # set the reboot time for kernel panics
-  sysctl::value{'kernel.panic': value => '30' }
+  sysctl::value{
+    # set the reboot time for kernel panics
+    'kernel.panic':
+        value => '30';
+  }
+  # these values aren't yet present on a debian lenny
+  if ($operatingsystem != 'Debian') or (lsbdistcodename != 'lenny') {
+	  sysctl::value{
+	    # Panic if a hung task was found
+	    'kernel.hung_task_panic':
+	        value => 1;
+	    # Setup timeout for hung task to 300 seconds
+	    'kernel.hung_task_timeout_secs':
+	        value => 300;
+	  }
+  }
 }
