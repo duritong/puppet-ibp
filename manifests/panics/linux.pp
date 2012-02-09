@@ -4,7 +4,7 @@ class ibp::panics::linux {
   if ($::operatingsystem == 'Debian') and ($::lsbdistcodename != 'lenny') {
     Exec["grub_panics"]{
       command => "sed -i 's@^\\(GRUB_CMDLINE_LINUX=\".*\\)\"@\\1 panic=30\"@g' /etc/default/grub",
-      unless => "grep -qE '^GRUB_CMDLINE_LINUX=.*panic=30.*'",
+      unless => "grep -qE '^GRUB_CMDLINE_LINUX=.*panic=30.*' /etc/default/grub",
       notify => Exec['update_grub_2.0'],
     }
     exec{'update_grub_2.0':
