@@ -1,5 +1,5 @@
 class ibp::panics {
-  case $kernel {
+  case $::kernel {
     linux: { include ibp::panics::linux }
   }
 }

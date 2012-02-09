@@ -1,5 +1,5 @@
 class ibp::network {
-  case $operatingsystem {
+  case $::operatingsystem {
       redhat,centos: { include ibp::network::disablezeroconf }
    }
 }

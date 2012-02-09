@@ -1,5 +1,5 @@
 class ibp::sysrq {
-  case $kernel {
+  case $::kernel {
     linux: { include ibp::sysrq::linux }
   }
 }

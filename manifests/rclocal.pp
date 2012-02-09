@@ -1,5 +1,5 @@
 class ibp::rclocal {
-  case $operatingsystem {
+  case $::operatingsystem {
     debian,ubuntu: { include ibp::rclocal::debian }
   }
 }

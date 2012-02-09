@@ -1,5 +1,5 @@
 class ibp::setterm {
-  case $kernel {
+  case $::kernel {
     linux: { include ibp::setterm::linux }
   }
 }
