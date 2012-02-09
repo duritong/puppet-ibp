@@ -1,7 +1,7 @@
 class ibp::network::disablezeroconf {
-  line{'disable_zeroconf':
+  file_line{'disable_zeroconf':
     line => 'NOZEROCONF=yes',
-    file => '/etc/sysconfig/network',
+    path => '/etc/sysconfig/network',
   }
 }
 
