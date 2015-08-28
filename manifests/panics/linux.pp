@@ -4,7 +4,7 @@ class ibp::panics::linux {
   # grub 2.0 systems
   if ($::operatingsystem == 'Centos') and ($::operatingsystemmajrelease < 7) {
     Exec['grub_panics']{
-      command => 'sed -i \'s@\\(.*vmlinuz.*\\)@\\1 panic=30@g\' /boot/grub/grub.conf',
+      command => 'sed -i \'s@\(.*vmlinuz.*\)@\1 panic=30@g\' /boot/grub/grub.conf',
       unless  => 'grep -q \'panic=30\' /boot/grub/grub.conf'
     }
   } else {
