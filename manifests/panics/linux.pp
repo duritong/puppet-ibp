@@ -3,7 +3,7 @@ class ibp::panics::linux(
   $use_grub = true
 ) {
 
-  if ($use_grub) {
+  if $use_grub and ($::lsbdistid != 'Raspbian') {
     exec{'grub_panics': }
     # grub 2.0 systems
     if ($::operatingsystem == 'Centos') and ($::operatingsystemmajrelease < 7) {
