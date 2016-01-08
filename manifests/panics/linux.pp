@@ -6,7 +6,7 @@ class ibp::panics::linux(
   if $use_grub and ($::lsbdistid != 'Raspbian') {
     exec{'grub_panics': }
     # grub 2.0 systems
-    if ($::operatingsystem == 'Centos') and ($::operatingsystemmajrelease < 7) {
+    if ($::operatingsystem == 'Centos') and versioncmp($::operatingsystemmajrelease,'7') < 0 {
       Exec['grub_panics']{
         command => 'sed -i \'s@\(.*vmlinuz.*\)@\1 panic=30@g\' /boot/grub/grub.conf',
         unless  => 'grep -q \'panic=30\' /boot/grub/grub.conf'
@@ -18,7 +18,7 @@ class ibp::panics::linux(
         notify  => Exec['update_grub_2.0'],
       }
 
-      if ($::operatingsystem == 'Centos') and ($::operatingsystemmajrelease > 6) {
+      if ($::operatingsystem == 'Centos') and versioncmp($::operatingsystemmajrelease,'6') > 0 {
         $grub_update_cmd = 'grub2-mkconfig -o /boot/grub2/grub.cfg'
       } else {
         $grub_update_cmd = 'update-grub'
@@ -35,7 +35,7 @@ class ibp::panics::linux(
     'kernel.panic':
       value => '30';
   }
-  if !($::operatingsystem == 'Centos' and $::operatingsystemmajrelease > 6) {
+  if !($::operatingsystem == 'Centos' and versioncmp($::operatingsystemmajrelease,'6') > 0) {
     sysctl::value{
       # Panic if a hung task was found
       'kernel.hung_task_panic':
